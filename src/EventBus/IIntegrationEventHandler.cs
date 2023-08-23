@@ -1,6 +1,6 @@
 namespace LClaproth.MyFinancialTracker.EventBus;
 
-public interface IIntegrationEventHandler<in TIntegrationEvent> where TIntegrationEvent : IntegrationEvent
+public interface IIntegrationEventHandler<in TEvent> where TEvent : IntegrationEvent
 {
-    Task Handle(TIntegrationEvent @event);
+    Task Handle(TEvent @event);
 }

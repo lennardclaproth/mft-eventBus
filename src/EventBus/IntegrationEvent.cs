@@ -2,24 +2,15 @@ using System.Text.Json.Serialization;
 
 namespace LClaproth.MyFinancialTracker.EventBus;
 
-public record IntegrationEvent
+public abstract class IntegrationEvent
 {
-    public IntegrationEvent()
+    public abstract string Name { get; }
+    public Guid Id { get; init; }
+    public DateTime CreationDate { get; init; }
+
+    protected IntegrationEvent()
     {
         Id = Guid.NewGuid();
         CreationDate = DateTime.UtcNow;
     }
-
-    [JsonConstructor]
-    public IntegrationEvent(Guid id, DateTime createDate)
-    {
-        Id = id;
-        CreationDate = createDate;
-    }
-
-    [JsonInclude]
-    public Guid Id { get; private init; }
-
-    [JsonInclude]
-    public DateTime CreationDate { get; private init; }
 }

@@ -2,9 +2,14 @@ namespace LClaproth.MyFinancialTracker.EventBus;
 
 public interface IEventBus
 {
-    void Publish<TEvent>(TEvent @event);
-    void Subscribe<TEvent, THandler>(TEvent @event, THandler handler);
-    void UnSubscribe<TEvent, THandler>()
+    Task Publish<TEvent>(TEvent @event) 
+        where TEvent : IntegrationEvent, new();
+        
+    Task Subscribe<TEvent, THandler>() 
+        where TEvent : IntegrationEvent, new()
+        where THandler : IIntegrationEventHandler<TEvent>;
+
+    Task UnSubscribe<TEvent, THandler>()
         where TEvent : IntegrationEvent
         where THandler : IIntegrationEventHandler<TEvent>;
 }
